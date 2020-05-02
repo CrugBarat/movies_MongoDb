@@ -1,11 +1,13 @@
 <template lang="html">
   <div class="film-wrapper">
     <film-grid-item v-for="(film, index) in films" :key="index" :film="film" />
+    <film-details v-for="(film, index) in films" :film="film"></film-details>
   </div>
 </template>
 
 <script>
 import FilmGridItem from './FilmGridItem.vue';
+import FilmDetails from './FilmDetails.vue';
 import MoviesServices from '@/services/MoviesServices.js';
 import {eventBus} from '@/main.js';
 
@@ -24,7 +26,8 @@ export default {
     })
   },
   components: {
-    'film-grid-item': FilmGridItem
+    'film-grid-item': FilmGridItem,
+    'film-details': FilmDetails
   }
 }
 </script>
