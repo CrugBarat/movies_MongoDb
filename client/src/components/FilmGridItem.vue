@@ -1,31 +1,45 @@
 <template lang="html">
-<div class="film-card">
-  <h2>{{film.title}} </h2>
-  <p><span class="film-key">Genre: </span>{{film.Genre}}  </p>
-  <p><span class="film-key">Rating: </span>{{film.rating}}  </p>
-  <p><span class="film-key">Release Date: </span>{{film.release_date}}  </p>
-  <p><span class="film-key">Running time: </span>{{film.runtime}}   </p>
+  <div>
+    <div class="film-card">
+      <h2>{{film.title}} </h2>
+      <p><span class="film-key">Genre: </span>{{film.Genre}}  </p>
+      <p><span class="film-key">Rating: </span>{{film.rating}}  </p>
+      <p><span class="film-key">Release Date: </span>{{film.release_date}}  </p>
+      <p><span class="film-key">Running time: </span>{{film.runtime}}   </p>
 
-  <button type="button" class="action-btn" v-on:click="deleteFilm">Delete</button>
-  <button type="button" class="action-btn" v-on:click="selectFilm">Show Details</button>
-</div>
+      <button type="button" class="action-btn" v-on:click="deleteFilm">Delete</button>
+      <button type="button" class="action-btn" v-on:click="selectFilm">Show Details</button>
+    </div>
+    <div>
+      <film-details v-if="selectedFilm" :film="film"></film-details>
+    </div>
+    </div>
 </template>
 
 <script>
 import MoviesServices from '@/services/MoviesServices.js';
+import FilmDetails from './FilmDetails.vue';
 import {eventBus} from '@/main.js';
 
 export default {
   name: 'film-card',
   props: ['film'],
+  data() {
+    return {
+    selectedFilm: null
+    }
+  },
   methods: {
     deleteFilm(){
       MoviesServices.deleteMovie(this.film._id)
-      .then(() => eventBus.$emit('delete-movie', this.film._id))
+      .then(() => eventBus.$emit('movie-deleted', this.film._id))
     },
     selectFilm() {
-      //TODO: Code film Selected Method
+      this.selectedFilm = this.film
     }
+  },
+  components: {
+    'film-details': FilmDetails
   }
 }
 </script>

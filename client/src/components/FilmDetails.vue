@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-
+    <p>Producer:{{film.crew.producer}}</p>
   </div>
 </template>
 
