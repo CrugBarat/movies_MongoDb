@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const createRouter = require('./helpers/create_router.js');
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 app.use(cors());
@@ -9,9 +9,9 @@ app.use(cors());
 MongoClient.connect('mongodb://localhost:27017')
 .then((client) => {
   const db = client.db('movies_list');
-  const movieCollection = db.collection('movies');
-  const moviesRouter = createRouter(movieCollection);
-  app.use('/api/movies/', moviesRouter)
+  const moviesCollection = db.collection('movies');
+  const moviesRouter = createRouter(moviesCollection);
+  app.use('/api/movies', moviesRouter);
 })
 .catch(console.error);
 

@@ -12,7 +12,7 @@ db.movies.insertMany([
       director: "Quentin Tarantino",
       producer: "Lawrence Bender"
     }
-  }
+  },
   {
     title: "Reservoir Dogs",
     genre: "Crime",
