@@ -12,13 +12,16 @@
 </template>
 
 <script>
+import MoviesServices from '@/services/MoviesServices.js';
+import {eventBus} from '@/main.js';
 
 export default {
   name: 'film-card',
   props: ['film'],
   methods: {
     deleteFilm(){
-      // TODO: Code deleteFilm method
+      MoviesServices.deleteMovie(this.film._id)
+      .then(() => eventBus.$emit('delete-movie', this.film._id))
     },
     selectFilm() {
       //TODO: Code film Selected Method

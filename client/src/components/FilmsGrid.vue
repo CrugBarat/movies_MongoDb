@@ -5,7 +5,10 @@
 </template>
 
 <script>
-import FilmGridItem from './FilmGridItem'
+import FilmGridItem from './FilmGridItem.vue';
+import MoviesServices from '@/services/MoviesServices.js';
+import {eventBus} from '@/main.js';
+
 export default {
   data(){
     return {
@@ -13,7 +16,12 @@ export default {
     };
   },
   mounted(){
+    MoviesServices.getMovies().then(movies => this.films = movies);
 
+    eventBus.$on('delete-game', (id) => {
+      const index = this.films.findIndex(film => film._id === id);
+      this.films.splice(index, 1);
+    })
   },
   components: {
     'film-grid-item': FilmGridItem
